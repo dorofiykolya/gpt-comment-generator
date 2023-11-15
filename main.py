@@ -10,13 +10,13 @@ dotenv.load_dotenv()
 # get env
 GPT_API = os.getenv("GPT_API") or os.getenv("OPENAI_API_KEY")
 GPT_MODEL = os.getenv("GPT_MODEL") or "gpt-4-1106-preview"
-SOURCE_DIR = os.getenv("SOURCE_DIR")
+SOURCE_DIRS = os.getenv("SOURCE_DIRS")
 
 # source dir from SOURCE_DIR or use second argument
-source = SOURCE_DIR if len(sys.argv) == 1 else sys.argv[1]
+source = SOURCE_DIRS if len(sys.argv) == 1 else sys.argv[1]
 
 # read content
-source_content = utils.read_content(source)
+source_content = utils.read_content(source.split(","))
 
 
 # custom join files

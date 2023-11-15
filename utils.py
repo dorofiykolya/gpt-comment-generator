@@ -48,21 +48,22 @@ def get_files_recursively(root_dir: str):
     return all_files
 
 
-def read_content(source_dir: str, ext: str = ".cs") -> Content:
+def read_content(source_dirs: list[str], ext: str = ".cs") -> Content:
     # Content result
     result = Content()
 
-    # Loop through each file in the directory
-    for filename in get_files_recursively(source_dir):
-        if filename.endswith(ext):
-            # Construct the full file path
-            file_path = os.path.join(source_dir, filename)
-            # Open and read the file
-            with open(file_path, 'r') as file:
-                content = file.read()
-                result.files.append(FileContent(
-                    path=file_path,
-                    content=content
-                ))
+    for source_dir in source_dirs:
+        # Loop through each file in the directory
+        for filename in get_files_recursively(source_dir):
+            if filename.endswith(ext):
+                # Construct the full file path
+                file_path = os.path.join(source_dir, filename)
+                # Open and read the file
+                with open(file_path, 'r') as file:
+                    content = file.read()
+                    result.files.append(FileContent(
+                        path=file_path,
+                        content=content
+                    ))
 
     return result
