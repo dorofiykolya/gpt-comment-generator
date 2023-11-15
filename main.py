@@ -37,6 +37,7 @@ client = openai.AsyncClient()
 async def generate(file_name: str, code: str):
     completion = await client.chat.completions.create(
         model=GPT_MODEL,
+        temperature=0,
         messages=[
             {
                 "role": "system",
