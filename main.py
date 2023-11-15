@@ -26,7 +26,15 @@ source_content = utils.read_content(source.split(","))
 # custom join files
 def join_cs(content: str, join_file: utils.FileContent) -> (bool, str):
     # return f"{content}\n{join_file.content}"
-    return True, f"{content}\n<BEGIN file={join_file.file_name}>\n{join_file.content}\n<END>\n"
+    file_content = join_file.content
+
+    REMOVE_DOUBLE_SPACE = False
+
+    if REMOVE_DOUBLE_SPACE:
+        while "  " in file_content:
+            file_content = file_content.replace("  ", " ")
+
+    return True, f"{content}\n<BEGIN file={join_file.file_name}>\n{file_content}\n<END>\n"
 
 
 # joined code
