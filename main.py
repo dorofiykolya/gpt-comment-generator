@@ -36,9 +36,12 @@ completion = client.chat.completions.create(
         {
             "role": "system",
             "content":
-                """You are comment and documentation generator. 
-                User provide you concatenated code from source files.
-                You have to understand and generate comment with examples for each method"""
+                """You are a comment and documentation generator for different types of programming code. 
+                You will be provided a concatenated code from all project's source files.
+                You must analyze each given class and method and define relationships between them. 
+                Based on analyzed info, you must create comments that suits programming language of the given class or method.
+                ALSO you must strictly follow general comment and documentation rules for given programming language.
+                Remember to indicate method or class main purpose and variables in your comments."""
         },
         {
             "role": "user",
