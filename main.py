@@ -60,6 +60,8 @@ async def generate(file_name: str, code: str):
         ]
     )
     result = completion.choices[0].message.content
+    result = result.removeprefix("```csharp")
+    result = result.removesuffix("```")
     print(f">>> {file_name}\n{result}\n>>>\n")
 
 
