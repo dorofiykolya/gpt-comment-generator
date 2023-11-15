@@ -18,24 +18,44 @@ class FileContent:
 
 
 class JoinCallable(Protocol):
-    def __call__(self, content: str, join_file: FileContent) -> str:
+    def __call__(self, content: str, join_file: FileContent) -> (bool, str):
         ...
+
+
+class JoinedContent:
+    files: list[FileContent] = []
+    content: str
+
+    def __init__(self, content: str, files: list[FileContent]):
+        self.content = content
+        self.files = files
 
 
 class Content:
     files: list[FileContent] = []
 
-    def join(self, join_by: JoinCallable | None = None) -> str:
+    def join(self, join_by: JoinCallable | None = None) -> JoinedContent:
+        result: JoinedContent | None
         if (join_by is not None):
             content = ""
+            files: list[FileContent] = []
             for file in self.files:
-                content = join_by(content=content, join_file=file)
+                include, content = join_by(content=content, join_file=file)
+                if include:
+                    files.append(file)
 
-            return content
+            result = JoinedContent(
+                content=content,
+                files=files
+            )
         else:
             combined_content = [v.content for v in self.files]
-            result = '\n'.join(combined_content)
-            return result
+            result = JoinedContent(
+                content='\n'.join(combined_content),
+                files=self.files[:]
+            )
+
+        return result
 
 
 def get_files_recursively(root_dir: str):
