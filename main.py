@@ -73,9 +73,10 @@ async def generate(file_name: str, code: str):
                     You will be provided a concatenated code from all project's source files.
                     You must analyze each given class and method and define relationships between them. 
                     Based on analyzed info, you must create comments that suits programming language of the given class or method.
-                    ALSO you must strictly follow general comment and documentation rules for given programming language.
+                    You must strictly follow general comment and documentation rules for given programming language.
                     Remember to indicate method or class main purpose and variables in your comments.
-                    Write result ONLY as plain text
+                    You must also add comments inside methods in order to explain main logic better with details.
+                    Write result ONLY as plain text.
                     CODE:
                     {code}
                     """
