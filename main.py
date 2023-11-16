@@ -60,7 +60,7 @@ client = openai.AsyncClient()
 async def generate(file_name: str, code: str):
     
     tokenizer = tiktoken.get_encoding("cl100k_base")
-    print(f'Input tokens count: {len(tokenizer.encode(code))}')
+    print(f'Input tokens count: {len(tokenizer.encode(code))} {file_name}')
     
     completion = await client.chat.completions.create(
         model=GPT_MODEL,
