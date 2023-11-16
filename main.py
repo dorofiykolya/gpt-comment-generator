@@ -5,6 +5,7 @@ import os
 import sys
 import dotenv
 import tiktoken
+
 import utils
 import asyncio
 
@@ -14,13 +15,26 @@ dotenv.load_dotenv()
 # get env
 GPT_API = os.getenv("GPT_API") or os.getenv("OPENAI_API_KEY")
 GPT_MODEL = os.getenv("GPT_MODEL") or "gpt-4-1106-preview"
+ROOT_DIR = os.getenv("ROOT_DIR") or None
 SOURCE_DIRS = os.getenv("SOURCE_DIRS")
 
+if (
+        ROOT_DIR is not None
+        and ROOT_DIR != ""
+        and SOURCE_DIRS is not None
+        and SOURCE_DIRS != ""
+):
+    SOURCES = [s.strip() for s in SOURCE_DIRS.split(",")]
+    NEW_SOURCES = []
+    for SOURCE in SOURCES:
+        NEW_SOURCES.append(os.path.join(ROOT_DIR.strip(), SOURCE))
+    SOURCE_DIRS = ",".join(NEW_SOURCES)
+
 # source dir from SOURCE_DIR or use second argument
-source = SOURCE_DIRS if len(sys.argv) == 1 else sys.argv[1]
+source = [s.strip() for s in (SOURCE_DIRS if len(sys.argv) == 1 else sys.argv[1]).split(",")]
 
 # read content
-source_content = utils.read_content(source.split(","))
+source_content = utils.read_content(source)
 
 
 # custom join files
