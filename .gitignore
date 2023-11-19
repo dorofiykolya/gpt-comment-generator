@@ -2,3 +2,4 @@
 .env
 .idea
 csharp-netcore/CommentGenerator/bin
+csharp-netcore/CommentGenerator/appsettings.json
