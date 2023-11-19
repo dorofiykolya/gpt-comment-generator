@@ -3,3 +3,5 @@
 .idea
 csharp-netcore/CommentGenerator/bin
 csharp-netcore/CommentGenerator/appsettings.json
+csharp-netcore/CommentGenerator/obj
+csharp-netcore/CommentGenerator/obj/
