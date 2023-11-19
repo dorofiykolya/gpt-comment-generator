@@ -65,6 +65,7 @@ async def generate(file_name: str, code: str):
     completion = await client.chat.completions.create(
         model=GPT_MODEL,
         temperature=0,
+        max_tokens=8000,
         messages=[
             {
                 "role": "system",
@@ -75,8 +76,9 @@ async def generate(file_name: str, code: str):
                     Based on analyzed info, you must create comments that suits programming language of the given class or method.
                     You must strictly follow general comment and documentation rules for given programming language.
                     Remember to indicate method or class main purpose and variables in your comments.
-                    You must also add comments inside methods in order to explain main logic better with details.
-                    Write result ONLY as plain text.
+                    You must also add comments inside methods in order to explain main logic better with details and DO NOT OMMIT for brevity.
+                    Do NOT change original code, add comments ONLY.
+                    Write CODE ONLY.
                     CODE:
                     {code}
                     """
